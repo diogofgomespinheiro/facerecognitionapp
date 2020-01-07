@@ -1,0 +1,28 @@
+version: "3.7"
+
+services: 
+  smartbrain-backend:
+    container_name: backend
+    build: ./
+    command: npm start
+    working_dir: /usr/src/smartbrain-backend
+    environment: 
+      POSTGRES_URI: postgres://postgres:postgres123@postgres:5432/smartbrain
+      REDIS_URI: redis://redis:6379
+    ports: 
+      - "5000:5000"
+
+  postgres:
+    environment: 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: smartbrain
+      POSTGRES_HOST: postgres
+    build: ./postgres
+    ports: 
+      - "5432:5432"
+
+  redis:
+    image: redis
+    ports: 
+      - "6379:6379"
